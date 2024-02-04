@@ -1,0 +1,17 @@
+import cv2
+cam = cv2.VideoCapture(0)
+
+while True:
+    success, frame = cam.read()
+    frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    frameGray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    frameBlur = cv2.GaussianBlur(frameGray, (25, 25), 0)
+    frameCanny = cv2.Canny(frame, 100, 200)
+    cv2.imshow('Window', frame)
+    cv2.imshow('Window HSV', frameHSV)
+    cv2.imshow('Window GaussianBlur', frameBlur)
+    cv2.imshow('Window Canny', frameCanny)
+    if cv2.waitKey(1) & 0xff == ord('q'):
+        break
+cam.release()
+cv2.destroyAllWindows()
