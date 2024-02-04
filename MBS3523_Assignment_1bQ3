@@ -1,0 +1,25 @@
+import cv2
+
+def flip_image(image, flip_code):
+    if flip_code == 0:
+        return cv2.flip(image, 0)
+    elif flip_code == 1:
+        return cv2.flip(image, 1)
+    elif flip_code == -1:
+        return cv2.flip(image, -1)
+
+cam = cv2.VideoCapture(0)
+
+while True:
+    success, frame = cam.read()
+
+    row = cv2.hconcat([flip_image(frame, 0), flip_image(frame, -1)])
+    column = cv2.flip(row, 0)
+    combine_frame = cv2.vconcat([column, row])
+    cv2.imshow("Webcam Flip", combine_frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cam.release()
+cv2.destroyAllWindows()
