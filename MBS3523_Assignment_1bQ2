@@ -3,6 +3,9 @@ cam = cv2.VideoCapture(0)
 
 while True:
     success, frame = cam.read()
+    width = cam.get(3)
+    height = cam.get(4)
+    frame = cv2.resize(frame, (int(width/1.5), int(height/1.5)))
     frameHSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     frameGray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     frameBlur = cv2.GaussianBlur(frameGray, (25, 25), 0)
